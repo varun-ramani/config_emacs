@@ -25,6 +25,9 @@
 (use-package rainbow-delimiters :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode) :ensure t)
 (use-package evil :init (evil-mode) :ensure t)
 
+;; Org mode settings
+(add-hook 'org-mode-hook #'org-bullets-mode)
+
 ;; Line Numbers
 (global-linum-mode t)
 
@@ -40,7 +43,7 @@
 (use-package alect-themes :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package material-theme :ensure t :defer t)
-(load-theme 'solarized-dark t)
+(load-theme 'sanityinc-tomorrow-eighties t)
 
 ;; Spaceline
 (use-package spaceline
@@ -95,13 +98,11 @@
   :ensure t
   :defer t)
 
-
 ;; Disable GUI trash
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (set-window-fringes nil 0 0)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -109,7 +110,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (material-theme zenburn-theme yasnippet-snippets use-package spaceline solarized-theme rebecca-theme projectile monokai-theme molokai-theme evil dracula-theme diminish dashboard dakrone-theme counsel color-theme-sanityinc-tomorrow arjen-grey-theme alect-themes))))
+    (org-bullets zenburn-theme yasnippet-snippets use-package spaceline solarized-theme rebecca-theme rainbow-delimiters projectile monokai-theme molokai-theme material-theme groovy-mode gradle-mode evil elpy ein dracula-theme diminish dashboard dakrone-theme counsel color-theme-sanityinc-tomorrow arjen-grey-theme alect-themes))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
