@@ -43,7 +43,7 @@
 (use-package alect-themes :ensure t :defer t)
 (use-package solarized-theme :ensure t :defer t)
 (use-package material-theme :ensure t :defer t)
-(load-theme 'sanityinc-tomorrow-eighties t)
+(load-theme 'sanityinc-tomorrow-day t)
 
 ;; Spaceline
 (use-package spaceline
@@ -108,6 +108,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
  '(package-selected-packages
    (quote
     (org-bullets zenburn-theme yasnippet-snippets use-package spaceline solarized-theme rebecca-theme rainbow-delimiters projectile monokai-theme molokai-theme material-theme groovy-mode gradle-mode evil elpy ein dracula-theme diminish dashboard dakrone-theme counsel color-theme-sanityinc-tomorrow arjen-grey-theme alect-themes))))
