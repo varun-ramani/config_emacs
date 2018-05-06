@@ -1,7 +1,12 @@
 ;; Varun's Emacs Configuration
 
 ;; Saving Emacs Startup time
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold 50000000)
+
+(add-hook 'emacs-startup-hook 'my/set-gc-threshold)
+(defun my/set-gc-threshold ()
+  "Reset `gc-cons-threshold' to its default value."
+  (setq gc-cons-threshold 800000))
 
 ;; Packages
 (require 'package)
@@ -19,11 +24,22 @@
 (use-package diminish :ensure t)
 (use-package bind-key :ensure t)
 
-;; Text Editing
-(setq tab-width 4)
-(electric-pair-mode)
-(use-package rainbow-delimiters :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode) :ensure t)
-(use-package evil :init (evil-mode) :ensure t)
+;; Disable GUI trash
+(use-package ace-popup-menu
+  :ensure t
+  :init (ace-popup-menu-mode))
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(set-window-fringes nil 0 0)
+(set-frame-parameter nil 'fullscreen 'fullboth)
+
+
+;; (y/n)
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Modeline
+(display-time-mode 1)
 
 ;; Org mode settings
 (add-hook 'org-mode-hook #'org-bullets-mode)
@@ -35,22 +51,9 @@
 (add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
 
 ;; Themes
-(use-package molokai-theme :ensure t :defer t)
 (use-package monokai-theme :ensure t :defer t)
-(use-package zenburn-theme :ensure t :defer t)
-(use-package color-theme-sanityinc-tomorrow :ensure t :defer t)
-(use-package dracula-theme :ensure t :defer t)
-(use-package alect-themes :ensure t :defer t)
-(use-package solarized-theme :ensure t :defer t)
-(use-package material-theme :ensure t :defer t)
-(load-theme 'sanityinc-tomorrow-eighties t)
-
-;; Spaceline
-(use-package spaceline
-  :ensure t
-  :config
-  (spaceline-spacemacs-theme)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+(use-package doom-themes :ensure t :defer t)
+(load-theme 'doom-one t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -65,7 +68,12 @@
 ;; Python Development
 (use-package elpy
   :ensure t
-  :init (elpy-enable))
+  :init (elpy-enable)
+  :config (highlight-indentation-mode))
+
+;; Web development
+(use-package web-mode
+  :ensure t)
 
 ;; Gradle
 (use-package gradle-mode
@@ -75,6 +83,14 @@
   :defer t
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
+
+;; Dart/Flutter
+(use-package dart-mode
+  :ensure t
+  :defer t
+  :config
+  (setq dart-enable-analysis-server t))
+
 ;; Homescreen
 (use-package page-break-lines :ensure t)
 (use-package dashboard
@@ -83,34 +99,55 @@
   (dashboard-setup-startup-hook)
   :config
   (setq dashboard-banner-logo-title "Varun Ramani's Emacs Configuration")
-  (setq dashboard-startup-banner 'logo))
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (agenda . 5))))
 
-
-;; Growing some Ivy
-(use-package counsel
-  :ensure t
-  :defer t)
-(use-package ivy
+;; Git Integration
+(use-package magit
   :ensure t)
 
 ;; Projectile
 (use-package projectile
   :ensure t
-  :defer t)
+  :init (projectile-mode))
 
-;; Disable GUI trash
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(set-window-fringes nil 0 0)
+;; Helm
+(use-package helm
+  :ensure t
+  :defer t
+  :init (helm-mode))
+(use-package helm-fuzzy-find
+  :ensure t)
+(use-package helm-projectile
+  :ensure t)
+
+;; Epic keybindings - may migrate to general.el soon
+(use-package evil :init (evil-mode) :ensure t)
+(use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
+
+(define-key evil-normal-state-map (kbd "SPC b") 'helm-buffers-list)
+(define-key evil-normal-state-map (kbd "SPC f") 'helm-find-files)
+(define-key evil-normal-state-map (kbd "SPC p p") 'helm-projectile-switch-project)
+(define-key evil-normal-state-map (kbd "SPC p f") 'counsel-projectile-find-file)
+
+;; Text Editing
+(setq tab-width 4)
+(electric-pair-mode)
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
+  :ensure t)
+(setq-default indent-tabs-mode nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))))
+ '(package-selected-packages (quote (ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

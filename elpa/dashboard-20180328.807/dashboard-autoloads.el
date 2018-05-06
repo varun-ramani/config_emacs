@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "dashboard" "dashboard.el" (23255 63789 217039
-;;;;;;  508000))
+;;;### (autoloads nil "dashboard" "dashboard.el" (23278 2783 73872
+;;;;;;  62000))
 ;;; Generated autoloads from dashboard.el
 
 (autoload 'dashboard-setup-startup-hook "dashboard" "\
@@ -16,7 +16,7 @@ If a command line argument is provided, assume a filename and skip displaying Da
 ;;;***
 
 ;;;### (autoloads nil nil ("dashboard-pkg.el" "dashboard-widgets.el")
-;;;;;;  (23255 63789 210372 841000))
+;;;;;;  (23278 2783 67205 373000))
 
 ;;;***
 

@@ -1,1 +1,1 @@
-("~/.emacs.d/")
+("~/Documents/School/Computer_Science/ATCS/DataStructures/Tree/BinaryTree/MorseCode/" "~/.emacs.d/" "~/Downloads/flask-hw-sample/")
