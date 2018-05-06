@@ -4,7 +4,7 @@
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil "find-file-in-project" "find-file-in-project.el"
-;;;;;;  (23278 2775 947182 584000))
+;;;;;;  (23278 26485 204328 922000))
 ;;; Generated autoloads from find-file-in-project.el
 
 (autoload 'ffip-git-diff-current-file "find-file-in-project" "\

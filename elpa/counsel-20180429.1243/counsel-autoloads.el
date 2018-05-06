@@ -3,7 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "counsel" "counsel.el" (23278 2783 760540 924000))
+;;;### (autoloads nil "counsel" "counsel.el" (23278 26501 474163
+;;;;;;  80000))
 ;;; Generated autoloads from counsel.el
 
 (autoload 'counsel-el "counsel" "\

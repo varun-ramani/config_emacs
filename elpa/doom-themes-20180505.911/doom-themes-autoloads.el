@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "doom-themes" "doom-themes.el" (23278 2728
-;;;;;;  167028 589000))
+;;;### (autoloads nil "doom-themes" "doom-themes.el" (23278 26454
+;;;;;;  924753 116000))
 ;;; Generated autoloads from doom-themes.el
 
 (autoload 'doom-name-to-rgb "doom-themes" "\
@@ -81,7 +81,7 @@ Blink the mode-line red briefly. Set `ring-bell-function' to this to use it.
 ;;;;;;  "doom-spacegrey-theme.el" "doom-themes-common.el" "doom-themes-neotree.el"
 ;;;;;;  "doom-themes-org.el" "doom-themes-pkg.el" "doom-tomorrow-day-theme.el"
 ;;;;;;  "doom-tomorrow-night-theme.el" "doom-vibrant-theme.el") (23278
-;;;;;;  2728 250362 193000))
+;;;;;;  26454 998085 223000))
 
 ;;;***
 

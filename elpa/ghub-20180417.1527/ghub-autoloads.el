@@ -3,7 +3,7 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "ghub" "ghub.el" (23278 2786 480549 618000))
+;;;### (autoloads nil "ghub" "ghub.el" (23278 26498 110860 651000))
 ;;; Generated autoloads from ghub.el
 
 (autoload 'ghub-create-token "ghub" "\
@@ -25,7 +25,7 @@ has to provide several values including their password.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ghub-pkg.el") (23278 2786 490549 650000))
+;;;### (autoloads nil nil ("ghub-pkg.el") (23278 26498 120860 558000))
 
 ;;;***
 

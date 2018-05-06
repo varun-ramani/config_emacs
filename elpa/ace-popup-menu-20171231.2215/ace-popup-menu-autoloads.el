@@ -4,7 +4,7 @@
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil "ace-popup-menu" "ace-popup-menu.el" (23278
-;;;;;;  2723 833681 194000))
+;;;;;;  26453 778105 665000))
 ;;; Generated autoloads from ace-popup-menu.el
 
 (defvar ace-popup-menu-mode nil "\

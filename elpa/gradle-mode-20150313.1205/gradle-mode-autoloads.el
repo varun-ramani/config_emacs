@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "gradle-mode" "gradle-mode.el" (23278 2778
-;;;;;;  553857 598000))
+;;;### (autoloads nil "gradle-mode" "gradle-mode.el" (23278 26487
+;;;;;;  970964 448000))
 ;;; Generated autoloads from gradle-mode.el
 
 (defvar gradle-mode nil "\
