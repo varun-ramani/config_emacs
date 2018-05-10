@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/Documents/School/Computer_Science/ATCS/DataStructures/Tree/BinaryTree/MorseCode/" "~/Downloads/flask-hw-sample/")
+("~/.emacs.d/" "~/Documents/Software/Distribution/areawave/" "~/Documents/Software/Learning/Flask/simple-youtube/" "~/Documents/Software/Learning/Flask/url-variables-1/" "~/Documents/Software/Learning/Flask/complex-strings/")

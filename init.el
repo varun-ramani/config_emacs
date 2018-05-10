@@ -30,7 +30,14 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (set-window-fringes nil 0 0)
-(set-frame-parameter nil 'fullscreen 'fullboth)
+
+;; Enable GUI nontrash
+(use-package all-the-icons :ensure t :defer t)
+(use-package neotree
+  :ensure t
+  :defer t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 
 ;; (y/n)
@@ -40,10 +47,8 @@
 (display-time-mode 1)
 
 ;; Org mode settings
+(use-package org-bullets :ensure t)
 (add-hook 'org-mode-hook #'org-bullets-mode)
-
-;; Line Numbers
-(global-linum-mode t)
 
 ;; Font
 (add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
@@ -66,8 +71,7 @@
 ;; Python Development
 (use-package elpy
   :ensure t
-  :init (elpy-enable)
-  :config (highlight-indentation-mode))
+  :init (elpy-enable))
 
 ;; Web development
 (use-package web-mode
@@ -126,14 +130,63 @@
 (use-package evil :init (evil-mode) :ensure t)
 (use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
 
-(define-key evil-normal-state-map (kbd "SPC b") 'ivy-switch-buffer)
-(define-key evil-normal-state-map (kbd "SPC f") 'counsel-fzf)
+(use-package general
+  :ensure t
+  :init (general-evil-setup))
 
-(define-key evil-normal-state-map (kbd "SPC p p") 'counsel-projectile-switch-project)
-(define-key evil-normal-state-map (kbd "SPC p f") 'counsel-projectile-find-file)
+(general-nmap
+  :prefix "SPC"
 
-(define-key evil-normal-state-map (kbd "SPC SPC") 'counsel-M-x)
-(define-key evil-normal-state-map (kbd "/") 'swiper)
+  "f" 'counsel-fzf)
+  
+(general-nmap
+  :prefix "SPC"
+
+  "w" 'evil-write
+  
+  "b" 'ivy-switch-buffer
+
+  "p p" 'counsel-projectile-switch-project
+  "p f" 'counsel-projectile-find-file)
+
+(general-nmap
+  :prefix "SPC n"
+
+  "f" 'neotree-toggle
+  "p" 'neotree-projectile-action)
+
+(general-nmap
+  :keymaps 'neotree-mode-map
+
+  "TAB" 'neotree-enter
+  "RET" 'neotree-enter
+
+  "SPC" 'neotree-quick-look)
+
+(general-nmap
+  :prefix "SPC"
+
+  "SPC" 'counsel-M-x
+
+  "q" 'evil-quit)
+
+(general-nmap
+  :prefix "SPC s"
+
+  "h" 'evil-window-split
+  "v" 'evil-window-vsplit)
+
+(general-nmap
+  :prefix "SPC m"
+
+  "h" 'evil-window-left
+  "l" 'evil-window-right
+  "j" 'evil-window-down
+  "k" 'evil-window-up)
+
+(general-nmap
+  "/" 'swiper
+  "SPC /" 'swiper-all)
 
 (define-key ivy-mode-map (kbd "C-j") 'ivy-next-line)
 (define-key ivy-mode-map (kbd "C-k") 'ivy-previous-line)
@@ -147,13 +200,22 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
   :ensure t)
+(setq auto-window-vscroll nil)
+
+;; Highlight Line
 (global-hl-line-mode 1)
+
+(use-package nlinum
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'nlinum-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (ace-popup-menu))))
+ '(package-selected-packages (quote (neotree ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
