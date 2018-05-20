@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/Documents/Software/Distribution/areawave/" "~/Documents/Software/Learning/Flask/simple-youtube/" "~/Documents/Software/Learning/Flask/url-variables-1/" "~/Documents/Software/Learning/Flask/complex-strings/")
+("~/Documents/School/" "~/.emacs.d/" "~/Documents/Software/Distribution/areawave/" "~/Documents/Software/Learning/Flask/simple-youtube/" "~/Documents/Software/Learning/Flask/url-variables-1/" "~/Documents/Software/Learning/Flask/complex-strings/")

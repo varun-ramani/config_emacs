@@ -32,7 +32,12 @@
 (set-window-fringes nil 0 0)
 
 ;; Enable GUI nontrash
-(use-package neo)
+(use-package all-the-icons :ensure t :defer t)
+(use-package neotree
+  :ensure t
+  :defer t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 
 ;; (y/n)
@@ -45,16 +50,13 @@
 (use-package org-bullets :ensure t)
 (add-hook 'org-mode-hook #'org-bullets-mode)
 
-;; Line Numbers
-(global-linum-mode t)
-
 ;; Font
 (add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
 
 ;; Themes
 (use-package monokai-theme :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t)
-(load-theme 'doom-one t)
+(load-theme 'doom-molokai t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -69,12 +71,12 @@
 ;; Python Development
 (use-package elpy
   :ensure t
-  :init (elpy-enable)
-  :config (highlight-indentation-mode))
+  :init (elpy-enable))
 
 ;; Web development
 (use-package web-mode
   :ensure t)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
 ;; Gradle
 (use-package gradle-mode
@@ -91,6 +93,9 @@
   :defer t
   :config
   (setq dart-enable-analysis-server t))
+
+(use-package markdown-mode
+  :ensure t)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -141,13 +146,24 @@
 (general-nmap
   :prefix "SPC"
 
-  "w" 'evil-write
+  "w f" 'evil-write
   
   "b" 'ivy-switch-buffer
 
   "p p" 'counsel-projectile-switch-project
   "p f" 'counsel-projectile-find-file)
 
+(general-nmap
+  :prefix "SPC n"
+
+  "f" 'neotree-dir
+  "p" 'neotree-projectile-action)
+
+(general-nmap
+  :keymaps 'neotree-mode-map
+
+  "RET" 'neotree-enter
+  "TAB" 'neotree-quick-look)
 
 (general-nmap
   :prefix "SPC"
@@ -163,7 +179,7 @@
   "v" 'evil-window-vsplit)
 
 (general-nmap
-  :prefix "SPC m"
+  :prefix "SPC w"
 
   "h" 'evil-window-left
   "l" 'evil-window-right
@@ -186,13 +202,24 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
   :ensure t)
+(setq auto-window-vscroll nil)
+
+;; Highlight Line
 (global-hl-line-mode 1)
+
+(use-package nlinum
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'nlinum-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
  '(package-selected-packages (quote (neotree ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

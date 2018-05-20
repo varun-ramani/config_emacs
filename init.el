@@ -54,7 +54,6 @@
 (add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
 
 ;; Themes
-(use-package monokai-theme :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t)
 (load-theme 'doom-one t)
 
@@ -76,6 +75,7 @@
 ;; Web development
 (use-package web-mode
   :ensure t)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
 ;; Gradle
 (use-package gradle-mode
@@ -92,6 +92,9 @@
   :defer t
   :config
   (setq dart-enable-analysis-server t))
+
+(use-package markdown-mode
+  :ensure t)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -138,11 +141,22 @@
   :prefix "SPC"
 
   "f" 'counsel-fzf)
+
+(general-nmap
+  :prefix "SPC o"
+
+  "c p" 'org-latex-export-to-pdf)
+
+(general-nmap
+  :prefix "SPC c"
+
+  "e" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
+  "r" (lambda () (interactive) (load-file "~/.emacs.d/init.el")))
   
 (general-nmap
   :prefix "SPC"
 
-  "w" 'evil-write
+  "w f" 'evil-write
   
   "b" 'ivy-switch-buffer
 
@@ -152,16 +166,18 @@
 (general-nmap
   :prefix "SPC n"
 
-  "f" 'neotree-toggle
-  "p" 'neotree-projectile-action)
+  "f" 'neotree-dir
+  "p" 'neotree-projectile-action
+
+  "n" 'neotree-delete-node
+  "c" 'neotree-copy-node
+  "t" 'neotree-create-node)
 
 (general-nmap
   :keymaps 'neotree-mode-map
 
-  "TAB" 'neotree-enter
   "RET" 'neotree-enter
-
-  "SPC" 'neotree-quick-look)
+  "TAB" 'neotree-quick-look)
 
 (general-nmap
   :prefix "SPC"
@@ -177,7 +193,7 @@
   "v" 'evil-window-vsplit)
 
 (general-nmap
-  :prefix "SPC m"
+  :prefix "SPC w"
 
   "h" 'evil-window-left
   "l" 'evil-window-right
@@ -215,6 +231,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
  '(package-selected-packages (quote (neotree ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
