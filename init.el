@@ -96,6 +96,9 @@
 (use-package markdown-mode
   :ensure t)
 
+;; C/C++
+(setq-default c-basic-offset 4)
+
 ;; Homescreen
 (use-package page-break-lines :ensure t)
 (use-package dashboard
@@ -105,9 +108,7 @@
   :config
   (setq dashboard-banner-logo-title "Varun Ramani's Emacs Configuration")
   (setq dashboard-startup-banner 'logo)
-  (setq dashboard-items '((recents  . 5)
-                        (bookmarks . 5)
-                        (agenda . 5))))
+  (setq dashboard-items '((projects . 5))))
 
 ;; Git Integration
 (use-package magit
@@ -169,7 +170,7 @@
   "f" 'neotree-dir
   "p" 'neotree-projectile-action
 
-  "n" 'neotree-delete-node
+  "d" 'neotree-delete-node
   "c" 'neotree-copy-node
   "t" 'neotree-create-node)
 
@@ -217,6 +218,7 @@
   (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
   :ensure t)
 (setq auto-window-vscroll nil)
+(setq default-tab-width 4)
 
 ;; Highlight Line
 (global-hl-line-mode 1)
@@ -233,8 +235,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
- '(package-selected-packages (quote (neotree ace-popup-menu))))
+	("9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" "b01b91ba9276deb39aa892c105a8644ef281b4d1804ab7c48de96e9c5d2aaa48" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
+ '(package-selected-packages
+   (quote
+	(smart-mode-line-powerline-theme powerline-evil csv-mode wc-mode neotree ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
