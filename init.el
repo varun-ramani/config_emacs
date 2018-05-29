@@ -39,7 +39,6 @@
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
-
 ;; (y/n)
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -51,7 +50,7 @@
 (add-hook 'org-mode-hook #'org-bullets-mode)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
+(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font"))
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
@@ -98,6 +97,9 @@
 
 ;; C/C++
 (setq-default c-basic-offset 4)
+
+(use-package meghanada
+  :ensure t)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
