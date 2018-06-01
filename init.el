@@ -54,6 +54,8 @@
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
+(use-package monokai-theme :ensure t :defer t)
+
 (load-theme 'monokai t)
 
 ;; Snippets
@@ -63,8 +65,12 @@
 
 ;; Autocomplete
 (use-package company
-  :init (company-mode)
   :ensure t)
+(use-package company-lsp
+  :ensure t)
+(add-hook 'prog-mode-hook 'company-mode)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
 
 ;; Python Development
 (use-package elpy
@@ -98,8 +104,9 @@
 ;; C/C++
 (setq-default c-basic-offset 4)
 
-(use-package meghanada
-  :ensure t)
+;; Java support
+(use-package lsp-java :ensure t)
+(add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -229,18 +236,12 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'nlinum-mode))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-	("9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" "b01b91ba9276deb39aa892c105a8644ef281b4d1804ab7c48de96e9c5d2aaa48" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
- '(package-selected-packages
-   (quote
-	(smart-mode-line-powerline-theme powerline-evil csv-mode wc-mode neotree ace-popup-menu))))
+ '(lsp-enable-indentation nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
