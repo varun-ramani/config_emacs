@@ -54,7 +54,7 @@
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
-(load-theme 'doom-one t)
+(load-theme 'monokai t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
