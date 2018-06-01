@@ -22,6 +22,11 @@
 (use-package diminish :ensure t)
 (use-package bind-key :ensure t)
 
+;; Evil Mode
+(use-package evil :init (evil-mode) :ensure t)
+(use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
+
+
 ;; Disable GUI trash
 (use-package ace-popup-menu
   :ensure t
@@ -39,7 +44,6 @@
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
-
 ;; (y/n)
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -51,12 +55,13 @@
 (add-hook 'org-mode-hook #'org-bullets-mode)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
+(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font"))
 
 ;; Themes
-(use-package monokai-theme :ensure t :defer t)
 (use-package doom-themes :ensure t :defer t)
-(load-theme 'doom-molokai t)
+(use-package monokai-theme :ensure t :defer t)
+
+(load-theme 'monokai t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -65,8 +70,12 @@
 
 ;; Autocomplete
 (use-package company
-  :init (company-mode)
   :ensure t)
+(use-package company-lsp
+  :ensure t)
+(add-hook 'prog-mode-hook 'company-mode)
+(require 'company-lsp)
+(push 'company-lsp company-backends)
 
 ;; Python Development
 (use-package elpy
@@ -78,15 +87,6 @@
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
-;; Gradle
-(use-package gradle-mode
-  :defer t
-  :ensure t)
-(use-package groovy-mode
-  :defer t
-  :ensure t)
-(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-
 ;; Dart/Flutter
 (use-package dart-mode
   :ensure t
@@ -97,6 +97,21 @@
 (use-package markdown-mode
   :ensure t)
 
+;; C/C++
+(setq-default c-basic-offset 4)
+
+;; Java support
+(use-package lsp-java :ensure t)
+(use-package gradle-mode
+  :defer t
+  :ensure t)
+(use-package groovy-mode
+  :defer t
+  :ensure t)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
+(add-hook 'java-mode-hook #'lsp-java-enable)
+(add-hook 'java-mode-hook #'gradle-mode)
+
 ;; Homescreen
 (use-package page-break-lines :ensure t)
 (use-package dashboard
@@ -106,9 +121,7 @@
   :config
   (setq dashboard-banner-logo-title "Varun Ramani's Emacs Configuration")
   (setq dashboard-startup-banner 'logo)
-  (setq dashboard-items '((recents  . 5)
-                        (bookmarks . 5)
-                        (agenda . 5))))
+  (setq dashboard-items '((projects . 5))))
 
 ;; Git Integration
 (use-package magit
@@ -130,9 +143,6 @@
 (use-package counsel-projectile :ensure t :defer t)
 
 
-;; Really epic and awesome keybindings 
-(use-package evil :init (evil-mode) :ensure t)
-(use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
 
 (use-package general
   :ensure t
@@ -142,6 +152,17 @@
   :prefix "SPC"
 
   "f" 'counsel-fzf)
+
+(general-nmap
+  :prefix "SPC o"
+
+  "c p" 'org-latex-export-to-pdf)
+
+(general-nmap
+  :prefix "SPC c"
+
+  "e" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
+  "r" (lambda () (interactive) (load-file "~/.emacs.d/init.el")))
   
 (general-nmap
   :prefix "SPC"
@@ -157,7 +178,11 @@
   :prefix "SPC n"
 
   "f" 'neotree-dir
-  "p" 'neotree-projectile-action)
+  "p" 'neotree-projectile-action
+
+  "d" 'neotree-delete-node
+  "c" 'neotree-copy-node
+  "t" 'neotree-create-node)
 
 (general-nmap
   :keymaps 'neotree-mode-map
@@ -203,6 +228,7 @@
   (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
   :ensure t)
 (setq auto-window-vscroll nil)
+(setq default-tab-width 4)
 
 ;; Highlight Line
 (global-hl-line-mode 1)
@@ -211,16 +237,15 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'nlinum-mode))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
+ '(lsp-enable-indentation nil)
+ '(package-selected-packages
    (quote
-    ("c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" default)))
- '(package-selected-packages (quote (neotree ace-popup-menu))))
+    (minimap yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

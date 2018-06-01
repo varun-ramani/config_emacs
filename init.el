@@ -82,15 +82,6 @@
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
-;; Gradle
-(use-package gradle-mode
-  :defer t
-  :ensure t)
-(use-package groovy-mode
-  :defer t
-  :ensure t)
-(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-
 ;; Dart/Flutter
 (use-package dart-mode
   :ensure t
@@ -106,7 +97,15 @@
 
 ;; Java support
 (use-package lsp-java :ensure t)
+(use-package gradle-mode
+  :defer t
+  :ensure t)
+(use-package groovy-mode
+  :defer t
+  :ensure t)
+(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
 (add-hook 'java-mode-hook #'lsp-java-enable)
+(add-hook 'java-mode-hook #'gradle-mode)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -168,10 +167,25 @@
 
   "w f" 'evil-write
   
-  "b" 'ivy-switch-buffer
+  "b" 'ivy-switch-buffer)
 
-  "p p" 'counsel-projectile-switch-project
-  "p f" 'counsel-projectile-find-file)
+(defun run-project ()
+  (run-with-timer .1 nil 'insert "make run")
+  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
+  (projectile-run-async-shell-command-in-root))
+(defun build-project ()
+  (run-with-timer .1 nil 'insert "make build")
+  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
+  (projectile-run-async-shell-command-in-root))
+
+(general-nmap
+  :prefix "SPC p"
+
+  "p" 'counsel-projectile-switch-project
+  "f" 'counsel-projectile-find-file
+
+  "b" (lambda () (interactive) (build-project))
+  "r" (lambda () (interactive) (run-project)))
 
 (general-nmap
   :prefix "SPC n"
