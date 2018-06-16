@@ -22,11 +22,6 @@
 (use-package diminish :ensure t)
 (use-package bind-key :ensure t)
 
-;; Evil Mode
-(use-package evil :init (evil-mode) :ensure t)
-(use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
-
-
 ;; Disable GUI trash
 (use-package ace-popup-menu
   :ensure t
@@ -61,7 +56,7 @@
 (use-package doom-themes :ensure t :defer t)
 (use-package monokai-theme :ensure t :defer t)
 
-(load-theme 'monokai t)
+(load-theme 'doom-one t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -99,6 +94,9 @@
 
 ;; C/C++
 (setq-default c-basic-offset 4)
+(use-package cquery :ensure t)
+(setq cquery-executable "/usr/bin/cquery")
+(add-hook 'c-mode-common-hook #'lsp-cquery-enable)
 
 ;; Java support
 (use-package lsp-java :ensure t)
@@ -109,8 +107,8 @@
   :defer t
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-(add-hook 'java-mode-hook #'lsp-java-enable)
 (add-hook 'java-mode-hook #'gradle-mode)
+(add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -143,6 +141,9 @@
 (use-package counsel-projectile :ensure t :defer t)
 
 
+;; Really epic and awesome keybindings 
+(use-package evil :init (evil-mode) :ensure t)
+(use-package evil-multiedit :ensure t :config (evil-multiedit-default-keybinds))
 
 (use-package general
   :ensure t
@@ -169,10 +170,25 @@
 
   "w f" 'evil-write
   
-  "b" 'ivy-switch-buffer
+  "b" 'ivy-switch-buffer)
 
-  "p p" 'counsel-projectile-switch-project
-  "p f" 'counsel-projectile-find-file)
+(defun run-project ()
+  (run-with-timer .1 nil 'insert "make run")
+  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
+  (projectile-run-async-shell-command-in-root))
+(defun build-project ()
+  (run-with-timer .1 nil 'insert "make build")
+  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
+  (projectile-run-async-shell-command-in-root))
+
+(general-nmap
+  :prefix "SPC p"
+
+  "p" 'counsel-projectile-switch-project
+  "f" 'counsel-projectile-find-file
+
+  "b" (lambda () (interactive) (build-project))
+  "r" (lambda () (interactive) (run-project)))
 
 (general-nmap
   :prefix "SPC n"
@@ -245,7 +261,7 @@
  '(lsp-enable-indentation nil)
  '(package-selected-packages
    (quote
-    (minimap yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
+    (xresources-theme cquery yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme minimap meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

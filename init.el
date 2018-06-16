@@ -50,13 +50,13 @@
 (add-hook 'org-mode-hook #'org-bullets-mode)
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font"))
+(add-to-list 'default-frame-alist '(font . "Hack-14"))
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
 (use-package monokai-theme :ensure t :defer t)
 
-(load-theme 'monokai t)
+(load-theme 'xresources t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -99,16 +99,16 @@
 (add-hook 'c-mode-common-hook #'lsp-cquery-enable)
 
 ;; Java support
-(use-package lsp-java :ensure t)
-(use-package gradle-mode
-  :defer t
-  :ensure t)
-(use-package groovy-mode
-  :defer t
-  :ensure t)
-(add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-(add-hook 'java-mode-hook #'gradle-mode)
-(add-hook 'java-mode-hook #'lsp-java-enable)
+; (use-package lsp-java :ensure t)
+; (use-package gradle-mode
+;   :defer t
+;   :ensure t)
+; (use-package groovy-mode
+;   :defer t
+;   :ensure t)
+; (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
+; (add-hook 'java-mode-hook #'gradle-mode)
+; (add-hook 'java-mode-hook #'lsp-java-enable)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -261,7 +261,7 @@
  '(lsp-enable-indentation nil)
  '(package-selected-packages
    (quote
-    (cquery yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme minimap meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
+    (lsp-javacomp xresources-theme cquery yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme minimap meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
