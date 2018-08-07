@@ -48,15 +48,16 @@
 ;; Org mode settings
 (use-package org-bullets :ensure t)
 (add-hook 'org-mode-hook #'org-bullets-mode)
+(setq org-agenda-files '("~/Dropbox/org/Events.org" "~/Dropbox/org/Tasks.org"))
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "Hack-14"))
+(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
 (use-package monokai-theme :ensure t :defer t)
 
-(load-theme 'xresources t)
+(load-theme 'doom-one t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -98,17 +99,14 @@
 (setq cquery-executable "/usr/bin/cquery")
 (add-hook 'c-mode-common-hook #'lsp-cquery-enable)
 
-;; Java support
-; (use-package lsp-java :ensure t)
-; (use-package gradle-mode
-;   :defer t
-;   :ensure t)
-; (use-package groovy-mode
-;   :defer t
-;   :ensure t)
-; (add-to-list 'auto-mode-alist '("\\.gradle\\'" . groovy-mode))
-; (add-hook 'java-mode-hook #'gradle-mode)
-; (add-hook 'java-mode-hook #'lsp-java-enable)
+;; JSX
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "jsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+(use-package tide :ensure t)
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -119,7 +117,7 @@
   :config
   (setq dashboard-banner-logo-title "Varun Ramani's Emacs Configuration")
   (setq dashboard-startup-banner 'logo)
-  (setq dashboard-items '((projects . 5))))
+  (setq dashboard-items '((agenda . 5))))
 
 ;; Git Integration
 (use-package magit
@@ -152,7 +150,7 @@
 (general-nmap
   :prefix "SPC"
 
-  "f" 'counsel-fzf)
+  "af" 'counsel-fzf)
 
 (general-nmap
   :prefix "SPC o"
@@ -172,23 +170,11 @@
   
   "b" 'ivy-switch-buffer)
 
-(defun run-project ()
-  (run-with-timer .1 nil 'insert "make run")
-  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
-  (projectile-run-async-shell-command-in-root))
-(defun build-project ()
-  (run-with-timer .1 nil 'insert "make build")
-  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
-  (projectile-run-async-shell-command-in-root))
-
 (general-nmap
   :prefix "SPC p"
 
   "p" 'counsel-projectile-switch-project
-  "f" 'counsel-projectile-find-file
-
-  "b" (lambda () (interactive) (build-project))
-  "r" (lambda () (interactive) (run-project)))
+  "f" 'counsel-projectile-find-file)
 
 (general-nmap
   :prefix "SPC n"
@@ -216,8 +202,10 @@
 (general-nmap
   :prefix "SPC s"
 
-  "h" 'evil-window-split
-  "v" 'evil-window-vsplit)
+  "h" (lambda () (interactive) (split-window-horizontally))
+  "l" (lambda () (interactive) (split-window-horizontally) (evil-window-right 1))
+  "j" (lambda () (interactive) (split-window-vertically) (evil-window-down 1))
+  "k" (lambda () (interactive) (split-window-vertically)))
 
 (general-nmap
   :prefix "SPC w"
@@ -258,10 +246,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(lsp-enable-indentation nil)
  '(package-selected-packages
    (quote
-    (lsp-javacomp xresources-theme cquery yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme minimap meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
+    (tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
