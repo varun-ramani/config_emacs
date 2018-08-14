@@ -51,7 +51,8 @@
 (setq org-agenda-files '("~/Dropbox/org/Events.org" "~/Dropbox/org/Tasks.org"))
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
+(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font 12"))
+(setq frame-resize-pixelwise t)
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
@@ -256,9 +257,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
+    (exwm tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

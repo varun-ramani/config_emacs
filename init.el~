@@ -51,7 +51,8 @@
 (setq org-agenda-files '("~/Dropbox/org/Events.org" "~/Dropbox/org/Tasks.org"))
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font"))
+(add-to-list 'default-frame-alist '(font . "FuraCode Nerd Font 12"))
+(setq frame-resize-pixelwise t)
 
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
@@ -100,12 +101,23 @@
 (add-hook 'c-mode-common-hook #'lsp-cquery-enable)
 
 ;; JSX
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (string-equal "jsx" (file-name-extension buffer-file-name))
-              (setup-tide-mode))))
+(use-package json-mode :ensure t)
+(use-package rjsx-mode :ensure t
+  :config
+  (setq js2-basic-offset 4)
+  (setq typescript-indent-level 4)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+(defun setup-tide-mode ()
+  "Set up Tide mode."
+  (interactive)
+  (tide-setup)
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+(use-package tide
+  :ensure t
+  :config
+  (setq company-tooltip-align-annotations t)
+  (add-hook 'rjsx-mode-hook #'setup-tide-mode))
 
 ;; Homescreen
 (use-package page-break-lines :ensure t)
@@ -169,28 +181,16 @@
   
   "b" 'ivy-switch-buffer)
 
-(defun run-project ()
-  (run-with-timer .1 nil 'insert "make run")
-  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
-  (projectile-run-async-shell-command-in-root))
-(defun build-project ()
-  (run-with-timer .1 nil 'insert "make build")
-  (run-with-timer .1 nil (lambda () (interactive) (execute-kbd-macro (kbd "RET"))))
-  (projectile-run-async-shell-command-in-root))
-
 (general-nmap
   :prefix "SPC p"
 
   "p" 'counsel-projectile-switch-project
-  "f" 'counsel-projectile-find-file
-
-  "b" (lambda () (interactive) (build-project))
-  "r" (lambda () (interactive) (run-project)))
+  "f" 'counsel-projectile-find-file)
 
 (general-nmap
   :prefix "SPC n"
 
-  "af" 'neotree-dir
+  "f" 'neotree-dir
   "p" 'neotree-projectile-action
 
   "d" 'neotree-delete-node
@@ -257,10 +257,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(lsp-enable-indentation nil)
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (spaceline-all-the-icons spaceline lsp-javacomp xresources-theme cquery yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme minimap meghanada markdown-mode magit lsp-java groovy-mode gradle-mode general evil-multiedit elpy doom-themes diminish dashboard dart-mode counsel-projectile company-lsp ace-popup-menu))))
+    (tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
