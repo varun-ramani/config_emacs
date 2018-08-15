@@ -159,9 +159,10 @@
   :init (general-evil-setup))
 
 (general-nmap
-  :prefix "SPC"
+  :prefix "SPC f"
 
-  "af" 'counsel-fzf)
+  "o" 'dired
+  "s" 'evil-write)
 
 (general-nmap
   :prefix "SPC o"
@@ -177,8 +178,6 @@
 (general-nmap
   :prefix "SPC"
 
-  "w f" 'evil-write
-  
   "b" 'ivy-switch-buffer)
 
 (general-nmap
