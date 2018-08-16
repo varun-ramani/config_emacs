@@ -45,6 +45,7 @@
 ;; Modeline
 (display-time-mode 1)
 
+
 ;; Org mode settings
 (use-package org-bullets :ensure t)
 (add-hook 'org-mode-hook #'org-bullets-mode)
@@ -57,8 +58,9 @@
 ;; Themes
 (use-package doom-themes :ensure t :defer t)
 (use-package monokai-theme :ensure t :defer t)
+(use-package dracula-theme :ensure t :defer t)
 
-(load-theme 'doom-one t)
+(load-theme 'dracula t)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -161,8 +163,7 @@
 (general-nmap
   :prefix "SPC f"
 
-  "o" 'dired
-  "s" 'evil-write)
+  "o" 'dired)
 
 (general-nmap
   :prefix "SPC o"
@@ -207,7 +208,8 @@
 
   "SPC" 'counsel-M-x
 
-  "q" 'evil-quit)
+  "q" 'evil-quit
+  "w f" 'evil-write)
 
 (general-nmap
   :prefix "SPC s"
@@ -256,6 +258,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" default)))
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
