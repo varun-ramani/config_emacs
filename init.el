@@ -6,6 +6,9 @@
   "Reset `gc-cons-threshold' to its default value."
   (setq gc-cons-threshold 800000))
 
+(setq make-backup-files nil) 
+(setq auto-save-default nil)
+
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -60,7 +63,8 @@
 (use-package monokai-theme :ensure t :defer t)
 (use-package dracula-theme :ensure t :defer t)
 
-(load-theme 'dracula t)
+(load-theme 'doom-peacock t)
+(doom-themes-neotree-config)
 
 ;; Snippets
 (use-package yasnippet :ensure t :defer t)
@@ -101,6 +105,28 @@
 (use-package cquery :ensure t)
 (setq cquery-executable "/usr/bin/cquery")
 (add-hook 'c-mode-common-hook #'lsp-cquery-enable)
+
+;; Golang
+(use-package go-mode
+  :ensure t
+  :defer t)
+(use-package company-go
+  :ensure t
+  :defer t)
+(use-package exec-path-from-shell
+  :ensure t)
+(setq go-indent-level 4)
+
+(defun my-go-mode-hook ()
+  (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
+  (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
+  (if (not (string-match "go" compile-command))   ; set compile command default
+      (set (make-local-variable 'compile-command)
+           "go build -v && go test -v && go vet"))
+  (require 'company-go)
+  (set (make-local-variable 'company-backends) '(company-go))
+  (exec-path-from-shell-copy-env "PATH"))
+(add-hook 'go-mode-hook 'my-go-mode-hook)
 
 ;; JSX
 (use-package json-mode :ensure t)
@@ -185,7 +211,8 @@
   :prefix "SPC p"
 
   "p" 'counsel-projectile-switch-project
-  "f" 'counsel-projectile-find-file)
+  "f" 'counsel-projectile-find-file
+  "c" 'projectile-compile-project)
 
 (general-nmap
   :prefix "SPC n"
@@ -228,6 +255,11 @@
   "k" 'evil-window-up)
 
 (general-nmap
+  :prefix "SPC e"
+
+  "s" 'eshell)
+
+(general-nmap
   "/" 'swiper
   "SPC /" 'swiper-all)
 
@@ -235,7 +267,10 @@
 (define-key ivy-mode-map (kbd "C-k") 'ivy-previous-line)
 
 ;; Text Editing
-(setq tab-width 4)
+(setq-default 
+  tab-width 4
+  standard-indent 4
+  indent-tabs-mode nil)		
 (setq scroll-conservatively 101)
 (electric-pair-mode)
 (use-package rainbow-delimiters
@@ -244,7 +279,6 @@
   (add-hook 'dart-mode-hook 'rainbow-delimters-mode)
   :ensure t)
 (setq auto-window-vscroll nil)
-(setq default-tab-width 4)
 
 ;; Highlight Line
 (global-hl-line-mode 1)
@@ -253,6 +287,7 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'nlinum-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -260,11 +295,11 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" default)))
+    ("b35a14c7d94c1f411890d45edfb9dc1bd61c5becd5c326790b51df6ebf60f402" "75d3dde259ce79660bac8e9e237b55674b910b470f313cdf4b019230d01a982a" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "1c082c9b84449e54af757bcae23617d11f563fc9f33a832a8a2813c4d7dfb652" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" default)))
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (exwm tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
+    (exec-path-from-shell go-mode exwm tide yasnippet-snippets web-mode use-package rainbow-delimiters org-bullets nlinum neotree monokai-theme markdown-mode magit general evil-multiedit elpy doom-themes diminish dashboard dart-mode cquery counsel-projectile company-lsp ace-popup-menu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
