@@ -1,0 +1,8 @@
+(load "~/.emacs.d/config/ide/languages/org.el")
+(load "~/.emacs.d/config/ide/languages/python.el")
+(load "~/.emacs.d/config/ide/languages/html.el")
+(load "~/.emacs.d/config/ide/languages/dart.el")
+(load "~/.emacs.d/config/ide/languages/markdown.el")
+(load "~/.emacs.d/config/ide/languages/cpp.el")
+(load "~/.emacs.d/config/ide/languages/golang.el")
+(load "~/.emacs.d/config/ide/languages/jsx.el")

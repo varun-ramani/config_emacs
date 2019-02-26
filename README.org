@@ -1,0 +1,6 @@
+#+TITLE: My Emacs Configuration 
+* Note 
+  This configuration has evolved to the point of being unusable without copious instruction. My sincerest apologies.
+
+* Other Note:
+  I will document it in time.
