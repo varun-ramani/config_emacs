@@ -9,9 +9,11 @@ transient/
 
 session*
 projectile*
+!*.el
 
 network-security.data
 ac-comphist.dat
 recentf
+customgarbage.el
 
 *~
