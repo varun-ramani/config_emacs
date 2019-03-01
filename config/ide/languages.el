@@ -6,3 +6,4 @@
 (load "~/.emacs.d/config/ide/languages/cpp.el")
 (load "~/.emacs.d/config/ide/languages/golang.el")
 (load "~/.emacs.d/config/ide/languages/jsx.el")
+(load "~/.emacs.d/config/ide/languages/rust.el")

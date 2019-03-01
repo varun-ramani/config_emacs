@@ -3,7 +3,7 @@
 (use-package monokai-theme :ensure t :defer t)
 (use-package dracula-theme :ensure t :defer t)
 
-(load-theme 'doom-peacock t)
+(load-theme 'doom-Iosvkem t)
 (doom-themes-neotree-config)
 
 ;; Font
