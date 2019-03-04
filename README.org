@@ -1,2 +1,4 @@
 * My Emacs Configuration
-This mess is my Emacs configuration! 
+** Documentation 
+   Here are some quick links:
+   file:documentation/keybindings.org
