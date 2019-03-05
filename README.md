@@ -10,5 +10,5 @@ git clone https://github.com/varun-ramani/config_emacs.git ~/.emacs.d
 * Wait for installation to complete
 
 ## The Epic Documentation (Work In Progress)
-[Some Keybindings](documentation/keybindings.md)
-[Configuring Language Support](documentation/languages.md)
+* [Some Keybindings](documentation/keybindings.md)
+* [Configuring Language Support](documentation/languages.md)
