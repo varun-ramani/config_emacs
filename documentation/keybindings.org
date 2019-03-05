@@ -1,2 +1,0 @@
-* Glorious Keybindings
-  The keybindings are based completely on the Vim keybindings.

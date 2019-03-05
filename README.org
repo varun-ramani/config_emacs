@@ -1,4 +1,0 @@
-* My Emacs Configuration
-** Documentation 
-   Here are some quick links:
-   file:documentation/keybindings.org
