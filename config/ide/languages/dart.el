@@ -2,4 +2,4 @@
   :ensure t
   :defer t
   :config
-  (setq dart-enable-analysis-server t))
+  (add-hook 'dart-mode-hook 'lsp))

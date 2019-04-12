@@ -39,7 +39,7 @@
 (use-package counsel :ensure t :defer t)
 (use-package counsel-projectile :ensure t :defer t)
 
-;; Homescreen
+ ;; Homescreen
 (use-package page-break-lines :ensure t)
 (use-package dashboard
   :ensure t
