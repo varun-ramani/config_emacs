@@ -1,4 +1,4 @@
-(setq-default 
+(setq-default
   tab-width 4
   standard-indent 4
   indent-tabs-mode nil)		
@@ -11,4 +11,7 @@
   :ensure t)
 (setq auto-window-vscroll nil)
 
-
+(setq evil-insert-state-cursor '(box "green")
+      evil-normal-state-cursor '(box "white")
+      evil-replace-state-cursor '(box "red")
+      evil-visual-state-cursor '(box "yellow"))
